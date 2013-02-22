@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="mta.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="mtaStoreContainer">
+    <EntitySet Name="ServiceStatus" EntityType="mta.Store.ServiceStatus" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DailyPlazaTraffic" EntityType="mta.Store.DailyPlazaTraffic" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BusBreakdowns" EntityType="mta.Store.BusBreakdowns" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Stations" EntityType="mta.Store.Stations" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TurnstileTraffics" EntityType="mta.Store.TurnstileTraffics" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="StationTurnstileTraffic" Association="mta.Store.StationTurnstileTraffic">
+      <End Role="Station" EntitySet="Stations" />
+      <End Role="TurnstileTraffic" EntitySet="TurnstileTraffics" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ServiceStatus">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Status" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Url" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Text" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="PlannedWorkHeadline" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Time" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Date" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="DailyPlazaTraffic">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Count" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BusBreakdowns">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CollisionWithInjury" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DistanceBetweenFailures" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CustomerAccidentRate" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Stations">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TurnstileTraffics">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Count" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Time" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="StationId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="StationTurnstileTraffic">
+    <End Role="Station" Type="mta.Store.Stations" Multiplicity="1" />
+    <End Role="TurnstileTraffic" Type="mta.Store.TurnstileTraffics" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Station">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TurnstileTraffic">
+        <PropertyRef Name="StationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="mta" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="mtaContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ServiceStatus" EntityType="mta.ServiceStatus" />
+          <EntitySet Name="DailyPlazaTraffic" EntityType="mta.DailyPlazaTraffic" />
+          <EntitySet Name="BusBreakdowns" EntityType="mta.BusBreakdown" />
+          <EntitySet Name="Stations" EntityType="mta.Station" />
+          <EntitySet Name="TurnstileTraffics" EntityType="mta.TurnstileTraffic" />
+          <AssociationSet Name="StationTurnstileTraffic" Association="mta.StationTurnstileTraffic">
+            <End Role="Station" EntitySet="Stations" />
+            <End Role="TurnstileTraffic" EntitySet="TurnstileTraffics" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ServiceStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Status" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="String" Name="Url" Nullable="true" />
+          <Property Type="String" Name="Text" Nullable="true" />
+          <Property Type="String" Name="PlannedWorkHeadline" Nullable="true" />
+          <Property Type="String" Name="Time" Nullable="true" />
+          <Property Type="String" Name="Date" Nullable="true" />
+        </EntityType>
+        <EntityType Name="DailyPlazaTraffic">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="String" Name="Count" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BusBreakdown">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="CollisionWithInjury" Nullable="false" />
+          <Property Type="String" Name="DistanceBetweenFailures" Nullable="false" />
+          <Property Type="String" Name="CustomerAccidentRate" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Station">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <NavigationProperty Name="TurnstileTraffics" Relationship="mta.StationTurnstileTraffic" FromRole="Station" ToRole="TurnstileTraffic" />
+        </EntityType>
+        <EntityType Name="TurnstileTraffic">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Count" Nullable="false" />
+          <Property Type="String" Name="Time" Nullable="false" />
+          <NavigationProperty Name="Station" Relationship="mta.StationTurnstileTraffic" FromRole="TurnstileTraffic" ToRole="Station" />
+          <Property Type="Int32" Name="StationId" Nullable="false" />
+        </EntityType>
+        <Association Name="StationTurnstileTraffic">
+          <End Type="mta.Station" Role="Station" Multiplicity="1" />
+          <End Type="mta.TurnstileTraffic" Role="TurnstileTraffic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Station">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TurnstileTraffic">
+              <PropertyRef Name="StationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="mtaStoreContainer" CdmEntityContainer="mtaContainer">
+    <EntitySetMapping Name="ServiceStatus">
+      <EntityTypeMapping TypeName="IsTypeOf(mta.ServiceStatus)">
+        <MappingFragment StoreEntitySet="ServiceStatus">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="PlannedWorkHeadline" ColumnName="PlannedWorkHeadline" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DailyPlazaTraffic">
+      <EntityTypeMapping TypeName="IsTypeOf(mta.DailyPlazaTraffic)">
+        <MappingFragment StoreEntitySet="DailyPlazaTraffic">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Count" ColumnName="Count" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BusBreakdowns">
+      <EntityTypeMapping TypeName="IsTypeOf(mta.BusBreakdown)">
+        <MappingFragment StoreEntitySet="BusBreakdowns">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CollisionWithInjury" ColumnName="CollisionWithInjury" />
+          <ScalarProperty Name="DistanceBetweenFailures" ColumnName="DistanceBetweenFailures" />
+          <ScalarProperty Name="CustomerAccidentRate" ColumnName="CustomerAccidentRate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stations">
+      <EntityTypeMapping TypeName="IsTypeOf(mta.Station)">
+        <MappingFragment StoreEntitySet="Stations">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TurnstileTraffics">
+      <EntityTypeMapping TypeName="IsTypeOf(mta.TurnstileTraffic)">
+        <MappingFragment StoreEntitySet="TurnstileTraffics">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Count" ColumnName="Count" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="StationId" ColumnName="StationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
