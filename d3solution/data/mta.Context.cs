@@ -30,5 +30,7 @@ namespace data
         public DbSet<BusBreakdown> BusBreakdowns { get; set; }
         public DbSet<Station> Stations { get; set; }
         public DbSet<TurnstileTraffic> TurnstileTraffics { get; set; }
+        public DbSet<SubwayLine> SubwayLines { get; set; }
+        public DbSet<SubwayLineWait> SubwayLineWaits { get; set; }
     }
 }

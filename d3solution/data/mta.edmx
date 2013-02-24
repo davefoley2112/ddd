@@ -11,9 +11,15 @@
     <EntitySet Name="BusBreakdowns" EntityType="mta.Store.BusBreakdowns" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Stations" EntityType="mta.Store.Stations" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TurnstileTraffics" EntityType="mta.Store.TurnstileTraffics" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SubwayLines" EntityType="mta.Store.SubwayLines" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SubwayLineWaits" EntityType="mta.Store.SubwayLineWaits" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="StationTurnstileTraffic" Association="mta.Store.StationTurnstileTraffic">
       <End Role="Station" EntitySet="Stations" />
       <End Role="TurnstileTraffic" EntitySet="TurnstileTraffics" />
+    </AssociationSet>
+    <AssociationSet Name="SubwaySubwayWait" Association="mta.Store.SubwaySubwayWait">
+      <End Role="Subway" EntitySet="SubwayLines" />
+      <End Role="SubwayWait" EntitySet="SubwayLineWaits" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="ServiceStatus">
@@ -62,6 +68,23 @@
     <Property Name="Time" Type="float" Nullable="false" />
     <Property Name="StationTurnstileTraffic_TurnstileTraffic_Id" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="SubwayLines">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MeanWait" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SubwayLineWaits">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Month" Type="int" Nullable="false" />
+    <Property Name="LatePercent" Type="float" Nullable="false" />
+    <Property Name="SubwaySubwayWait_SubwayWait_Id" Type="int" Nullable="false" />
+  </EntityType>
   <Association Name="StationTurnstileTraffic">
     <End Role="Station" Type="mta.Store.Stations" Multiplicity="1" />
     <End Role="TurnstileTraffic" Type="mta.Store.TurnstileTraffics" Multiplicity="*" />
@@ -71,6 +94,18 @@
       </Principal>
       <Dependent Role="TurnstileTraffic">
         <PropertyRef Name="StationTurnstileTraffic_TurnstileTraffic_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SubwaySubwayWait">
+    <End Role="Subway" Type="mta.Store.SubwayLines" Multiplicity="1" />
+    <End Role="SubwayWait" Type="mta.Store.SubwayLineWaits" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subway">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SubwayWait">
+        <PropertyRef Name="SubwaySubwayWait_SubwayWait_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -87,6 +122,12 @@
           <AssociationSet Name="StationTurnstileTraffic" Association="mta.StationTurnstileTraffic">
             <End Role="Station" EntitySet="Stations" />
             <End Role="TurnstileTraffic" EntitySet="TurnstileTraffics" />
+          </AssociationSet>
+          <EntitySet Name="SubwayLines" EntityType="mta.SubwayLine" />
+          <EntitySet Name="SubwayLineWaits" EntityType="mta.SubwayLineWait" />
+          <AssociationSet Name="SubwaySubwayWait" Association="mta.SubwaySubwayWait">
+            <End Role="Subway" EntitySet="SubwayLines" />
+            <End Role="SubwayWait" EntitySet="SubwayLineWaits" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="ServiceStatus">
@@ -138,6 +179,27 @@
         <Association Name="StationTurnstileTraffic">
           <End Type="mta.Station" Role="Station" Multiplicity="1" />
           <End Type="mta.TurnstileTraffic" Role="TurnstileTraffic" Multiplicity="*" />
+        </Association>
+        <EntityType Name="SubwayLine">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="SubwayLineWaits" Relationship="mta.SubwaySubwayWait" FromRole="Subway" ToRole="SubwayWait" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="Double" Name="MeanWait" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SubwayLineWait">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Month" Nullable="false" />
+          <Property Type="Double" Name="LatePercent" Nullable="false" />
+        </EntityType>
+        <Association Name="SubwaySubwayWait">
+          <End Type="mta.SubwayLine" Role="Subway" Multiplicity="1" />
+          <End Type="mta.SubwayLineWait" Role="SubwayWait" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -195,11 +257,37 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="SubwayLines">
+      <EntityTypeMapping TypeName="IsTypeOf(mta.SubwayLine)">
+        <MappingFragment StoreEntitySet="SubwayLines">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="MeanWait" ColumnName="MeanWait" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SubwayLineWaits">
+      <EntityTypeMapping TypeName="IsTypeOf(mta.SubwayLineWait)">
+        <MappingFragment StoreEntitySet="SubwayLineWaits">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="LatePercent" ColumnName="LatePercent" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="StationTurnstileTraffic" TypeName="mta.StationTurnstileTraffic" StoreEntitySet="TurnstileTraffics">
       <EndProperty Name="Station">
         <ScalarProperty Name="Id" ColumnName="StationTurnstileTraffic_TurnstileTraffic_Id" />
       </EndProperty>
       <EndProperty Name="TurnstileTraffic">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="SubwaySubwayWait" TypeName="mta.SubwaySubwayWait" StoreEntitySet="SubwayLineWaits">
+      <EndProperty Name="Subway">
+        <ScalarProperty Name="Id" ColumnName="SubwaySubwayWait_SubwayWait_Id" />
+      </EndProperty>
+      <EndProperty Name="SubwayWait">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>

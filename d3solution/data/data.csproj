@@ -73,6 +73,12 @@
     <Compile Include="Station.cs">
       <DependentUpon>mta.tt</DependentUpon>
     </Compile>
+    <Compile Include="SubwayLine.cs">
+      <DependentUpon>mta.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SubwayLineWait.cs">
+      <DependentUpon>mta.tt</DependentUpon>
+    </Compile>
     <Compile Include="TurnstileTraffic.cs">
       <DependentUpon>mta.tt</DependentUpon>
     </Compile>

@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Subway Wait Times</title>
+    <meta charset="utf-8">
+    <link href="../Styles/app.css" rel="stylesheet" />
+    <link href="../Styles/traincolors.css" rel="stylesheet" />
+
+    <!-- TODO: Move this to app.cs -->
+    <style>
+    body{
+        font-family:sans-serif;
+    }
+    .axis path, line{
+        stroke:black;
+    }
+    .timeseries path{
+        stroke-width:3px;
+    }
+    .timeseries circle{
+        stroke: white;
+    }
+    .timeseries text{
+        fill: white;
+        stroke: none;
+        font-size:12px;
+        font-weight: bold;
+    }
+    .line {
+        float:left;
+    }
+    .line_container{
+        width: 150px;
+        height: 20px;
+    }
+    path{
+        fill: none;
+    }
+    .key{
+        float:right;
+    }
+    .key_line{
+        font-size:17px;
+        width:100%;
+    }
+    .key_square{
+        height:10px;
+        width:10px;
+        outline:solid 1px black;
+        float:left;
+        margin-right:10px;
+        margin-top:6px;
+        margin-left:10px;
+    }
+    #timeseries{
+        float:left;
+    }
+    </style>
+
+    <script src="../Scripts/d3.v3.js"></script>
+    <script src="../Scripts/app.js"></script>
+</head>
+
+<body>
+    <div id="timeseries"></div>
+    <div id="key"></div>
+
+    <script type="text/javascript">
+        d3.json("http://localhost/d3/api/subway", drawSubwayWaits);
+    </script>
+</body>
+
+</html>

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 02/24/2013 12:15:47
+-- Date Created: 02/24/2013 16:42:48
 -- Generated from EDMX file: C:\dev\github\ddd\d3solution\data\mta.edmx
 -- --------------------------------------------------
 
@@ -91,6 +91,23 @@ CREATE TABLE [dbo].[TurnstileTraffics] (
 );
 GO
 
+-- Creating table 'SubwayLines'
+CREATE TABLE [dbo].[SubwayLines] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(max)  NOT NULL,
+    [MeanWait] float  NOT NULL
+);
+GO
+
+-- Creating table 'SubwayLineWaits'
+CREATE TABLE [dbo].[SubwayLineWaits] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Month] int  NOT NULL,
+    [LatePercent] float  NOT NULL,
+    [SubwaySubwayWait_SubwayWait_Id] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -125,6 +142,18 @@ ADD CONSTRAINT [PK_TurnstileTraffics]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
+-- Creating primary key on [Id] in table 'SubwayLines'
+ALTER TABLE [dbo].[SubwayLines]
+ADD CONSTRAINT [PK_SubwayLines]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'SubwayLineWaits'
+ALTER TABLE [dbo].[SubwayLineWaits]
+ADD CONSTRAINT [PK_SubwayLineWaits]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
@@ -141,6 +170,20 @@ ADD CONSTRAINT [FK_StationTurnstileTraffic]
 CREATE INDEX [IX_FK_StationTurnstileTraffic]
 ON [dbo].[TurnstileTraffics]
     ([StationTurnstileTraffic_TurnstileTraffic_Id]);
+GO
+
+-- Creating foreign key on [SubwaySubwayWait_SubwayWait_Id] in table 'SubwayLineWaits'
+ALTER TABLE [dbo].[SubwayLineWaits]
+ADD CONSTRAINT [FK_SubwaySubwayWait]
+    FOREIGN KEY ([SubwaySubwayWait_SubwayWait_Id])
+    REFERENCES [dbo].[SubwayLines]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SubwaySubwayWait'
+CREATE INDEX [IX_FK_SubwaySubwayWait]
+ON [dbo].[SubwayLineWaits]
+    ([SubwaySubwayWait_SubwayWait_Id]);
 GO
 
 -- --------------------------------------------------

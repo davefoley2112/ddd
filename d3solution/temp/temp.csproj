@@ -62,7 +62,9 @@
     <Content Include="Scripts\d3.v3.js" />
     <Content Include="Scripts\d3.v3.min.js" />
     <Content Include="Styles\app.css" />
+    <Content Include="Styles\traincolors.css" />
     <Content Include="Web\BusCollisions.html" />
+    <Content Include="Web\SubwayWaits.html" />
     <Content Include="Web\StationTurnstiles.html" />
     <Content Include="Web\DailyPlazaTraffic.html" />
     <Content Include="Web\ServiceStatus.html" />

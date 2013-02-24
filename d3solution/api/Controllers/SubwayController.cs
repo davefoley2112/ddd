@@ -12,42 +12,43 @@ using data;
 
 namespace api.Controllers
 {
-    public class StationController : ApiController
+    public class SubwayController : ApiController
     {
         private mtaContainer db = new mtaContainer();
 
-        // GET api/Station
-        public IEnumerable<Station> GetStations()
+        // GET api/Subway
+        public IEnumerable<SubwayLine> GetSubwayLines()
         {
-            return db.Stations.Include(x => x.TurnstileTraffics).AsEnumerable();
+            //return db.SubwayLines.Include(x => x.SubwayLineWaits).AsEnumerable();
+            return db.SubwayLines.AsEnumerable();
         }
 
-        // GET api/Station/5
-        public Station GetStation(int id)
+        // GET api/Subway/5
+        public SubwayLine GetSubwayLine(int id)
         {
-            Station station = db.Stations.Find(id);
-            if (station == null)
+            SubwayLine subwayline = db.SubwayLines.Find(id);
+            if (subwayline == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }
 
-            return station;
+            return subwayline;
         }
 
-        // PUT api/Station/5
-        public HttpResponseMessage PutStation(int id, Station station)
+        // PUT api/Subway/5
+        public HttpResponseMessage PutSubwayLine(int id, SubwayLine subwayline)
         {
             if (!ModelState.IsValid)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
 
-            if (id != station.Id)
+            if (id != subwayline.Id)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
 
-            db.Entry(station).State = EntityState.Modified;
+            db.Entry(subwayline).State = EntityState.Modified;
 
             try
             {
@@ -61,16 +62,16 @@ namespace api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        // POST api/Station
-        public HttpResponseMessage PostStation(Station station)
+        // POST api/Subway
+        public HttpResponseMessage PostSubwayLine(SubwayLine subwayline)
         {
             if (ModelState.IsValid)
             {
-                db.Stations.Add(station);
+                db.SubwayLines.Add(subwayline);
                 db.SaveChanges();
 
-                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, station);
-                response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = station.Id }));
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, subwayline);
+                response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = subwayline.Id }));
                 return response;
             }
             else
@@ -79,16 +80,16 @@ namespace api.Controllers
             }
         }
 
-        // DELETE api/Station/5
-        public HttpResponseMessage DeleteStation(int id)
+        // DELETE api/Subway/5
+        public HttpResponseMessage DeleteSubwayLine(int id)
         {
-            Station station = db.Stations.Find(id);
-            if (station == null)
+            SubwayLine subwayline = db.SubwayLines.Find(id);
+            if (subwayline == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
-            db.Stations.Remove(station);
+            db.SubwayLines.Remove(subwayline);
 
             try
             {
@@ -99,7 +100,7 @@ namespace api.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
             }
 
-            return Request.CreateResponse(HttpStatusCode.OK, station);
+            return Request.CreateResponse(HttpStatusCode.OK, subwayline);
         }
 
         protected override void Dispose(bool disposing)
