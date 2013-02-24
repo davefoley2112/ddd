@@ -58,9 +58,9 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Count" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Time" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="StationId" Type="int" Nullable="false" />
+    <Property Name="Count" Type="float" Nullable="false" />
+    <Property Name="Time" Type="float" Nullable="false" />
+    <Property Name="StationTurnstileTraffic_TurnstileTraffic_Id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="StationTurnstileTraffic">
     <End Role="Station" Type="mta.Store.Stations" Multiplicity="1" />
@@ -70,7 +70,7 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="TurnstileTraffic">
-        <PropertyRef Name="StationId" />
+        <PropertyRef Name="StationTurnstileTraffic_TurnstileTraffic_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -132,22 +132,12 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Count" Nullable="false" />
-          <Property Type="String" Name="Time" Nullable="false" />
-          <NavigationProperty Name="Station" Relationship="mta.StationTurnstileTraffic" FromRole="TurnstileTraffic" ToRole="Station" />
-          <Property Type="Int32" Name="StationId" Nullable="false" />
+          <Property Type="Double" Name="Count" Nullable="false" />
+          <Property Type="Double" Name="Time" Nullable="false" />
         </EntityType>
         <Association Name="StationTurnstileTraffic">
           <End Type="mta.Station" Role="Station" Multiplicity="1" />
           <End Type="mta.TurnstileTraffic" Role="TurnstileTraffic" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Station">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="TurnstileTraffic">
-              <PropertyRef Name="StationId" />
-            </Dependent>
-          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -202,10 +192,17 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Count" ColumnName="Count" />
           <ScalarProperty Name="Time" ColumnName="Time" />
-          <ScalarProperty Name="StationId" ColumnName="StationId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <AssociationSetMapping Name="StationTurnstileTraffic" TypeName="mta.StationTurnstileTraffic" StoreEntitySet="TurnstileTraffics">
+      <EndProperty Name="Station">
+        <ScalarProperty Name="Id" ColumnName="StationTurnstileTraffic_TurnstileTraffic_Id" />
+      </EndProperty>
+      <EndProperty Name="TurnstileTraffic">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

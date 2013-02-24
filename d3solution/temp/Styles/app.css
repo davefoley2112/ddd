@@ -41,3 +41,24 @@ circle{
     fill:RoyalBlue;
     opacity:0.6;
 }
+.axis {
+    font-family: arial;
+    font-size:0.6em;
+}
+path {
+    fill:none;
+    stroke:black;
+    stroke-width:2px;
+}
+.tick {
+    fill:none;
+    stroke:black;
+}
+circle.times_square{
+    fill:DeepPink;
+    opacity:1.0;
+}
+circle.grand_central{
+    fill:MediumSeaGreen;
+    opacity:1.0;
+}

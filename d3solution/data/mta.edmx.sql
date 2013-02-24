@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 02/22/2013 16:16:24
--- Generated from EDMX file: C:\github\d3\d3solution\data\mta.edmx
+-- Date Created: 02/24/2013 12:15:47
+-- Generated from EDMX file: C:\dev\github\ddd\d3solution\data\mta.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -17,6 +17,9 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_StationTurnstileTraffic]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[TurnstileTraffics] DROP CONSTRAINT [FK_StationTurnstileTraffic];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -30,6 +33,12 @@ IF OBJECT_ID(N'[dbo].[DailyPlazaTraffic]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[BusBreakdowns]', 'U') IS NOT NULL
     DROP TABLE [dbo].[BusBreakdowns];
+GO
+IF OBJECT_ID(N'[dbo].[Stations]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Stations];
+GO
+IF OBJECT_ID(N'[dbo].[TurnstileTraffics]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[TurnstileTraffics];
 GO
 
 -- --------------------------------------------------
@@ -76,9 +85,9 @@ GO
 -- Creating table 'TurnstileTraffics'
 CREATE TABLE [dbo].[TurnstileTraffics] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Count] nvarchar(max)  NOT NULL,
-    [Time] nvarchar(max)  NOT NULL,
-    [StationId] int  NOT NULL
+    [Count] float  NOT NULL,
+    [Time] float  NOT NULL,
+    [StationTurnstileTraffic_TurnstileTraffic_Id] int  NOT NULL
 );
 GO
 
@@ -120,10 +129,10 @@ GO
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
 
--- Creating foreign key on [StationId] in table 'TurnstileTraffics'
+-- Creating foreign key on [StationTurnstileTraffic_TurnstileTraffic_Id] in table 'TurnstileTraffics'
 ALTER TABLE [dbo].[TurnstileTraffics]
 ADD CONSTRAINT [FK_StationTurnstileTraffic]
-    FOREIGN KEY ([StationId])
+    FOREIGN KEY ([StationTurnstileTraffic_TurnstileTraffic_Id])
     REFERENCES [dbo].[Stations]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -131,7 +140,7 @@ ADD CONSTRAINT [FK_StationTurnstileTraffic]
 -- Creating non-clustered index for FOREIGN KEY 'FK_StationTurnstileTraffic'
 CREATE INDEX [IX_FK_StationTurnstileTraffic]
 ON [dbo].[TurnstileTraffics]
-    ([StationId]);
+    ([StationTurnstileTraffic_TurnstileTraffic_Id]);
 GO
 
 -- --------------------------------------------------

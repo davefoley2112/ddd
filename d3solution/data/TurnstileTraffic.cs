@@ -15,10 +15,7 @@ namespace data
     public partial class TurnstileTraffic
     {
         public int Id { get; set; }
-        public string Count { get; set; }
-        public string Time { get; set; }
-        public int StationId { get; set; }
-    
-        public virtual Station Station { get; set; }
+        public double Count { get; set; }
+        public double Time { get; set; }
     }
 }

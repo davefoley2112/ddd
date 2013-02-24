@@ -1,4 +1,4 @@
-﻿// Default code generation is disabled for model 'C:\github\d3\d3solution\data\mta.edmx'. 
+﻿// Default code generation is disabled for model 'C:\dev\github\ddd\d3solution\data\mta.edmx'. 
 // To enable default code generation, change the value of the 'Code Generation Strategy' designer
 // property to an alternate value. This property is available in the Properties Window when the model is
 // open in the designer.

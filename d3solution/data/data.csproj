@@ -105,11 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="mta.edmx.sql" />
-    <Content Include="Scripts\dbo.BusBreakdowns.data.sql" />
-    <Content Include="Scripts\dbo.DailyPlazaTraffic.data.sql" />
-    <Content Include="Scripts\dbo.ServiceStatus.data.sql" />
-    <Content Include="Scripts\dbo.Stations.data.sql" />
-    <Content Include="Scripts\dbo.TurnstileTraffics.data.sql" />
+    <Content Include="Scripts\seed.data.sql" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
