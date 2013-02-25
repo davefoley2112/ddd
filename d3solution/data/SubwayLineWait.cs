@@ -15,7 +15,7 @@ namespace data
     public partial class SubwayLineWait
     {
         public int Id { get; set; }
-        public int Month { get; set; }
+        public double Time { get; set; }
         public double LatePercent { get; set; }
     }
 }

@@ -81,7 +81,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Month" Type="int" Nullable="false" />
+    <Property Name="Time" Type="float" Nullable="false" />
     <Property Name="LatePercent" Type="float" Nullable="false" />
     <Property Name="SubwaySubwayWait_SubwayWait_Id" Type="int" Nullable="false" />
   </EntityType>
@@ -194,7 +194,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="Month" Nullable="false" />
+          <Property Type="Double" Name="Time" Nullable="false" />
           <Property Type="Double" Name="LatePercent" Nullable="false" />
         </EntityType>
         <Association Name="SubwaySubwayWait">
@@ -270,7 +270,7 @@
       <EntityTypeMapping TypeName="IsTypeOf(mta.SubwayLineWait)">
         <MappingFragment StoreEntitySet="SubwayLineWaits">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
           <ScalarProperty Name="LatePercent" ColumnName="LatePercent" />
         </MappingFragment>
       </EntityTypeMapping>

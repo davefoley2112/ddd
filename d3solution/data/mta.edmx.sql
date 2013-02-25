@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 02/24/2013 16:42:48
+-- Date Created: 02/24/2013 18:49:53
 -- Generated from EDMX file: C:\dev\github\ddd\d3solution\data\mta.edmx
 -- --------------------------------------------------
 
@@ -19,6 +19,9 @@ GO
 
 IF OBJECT_ID(N'[dbo].[FK_StationTurnstileTraffic]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[TurnstileTraffics] DROP CONSTRAINT [FK_StationTurnstileTraffic];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SubwaySubwayWait]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SubwayLineWaits] DROP CONSTRAINT [FK_SubwaySubwayWait];
 GO
 
 -- --------------------------------------------------
@@ -39,6 +42,12 @@ IF OBJECT_ID(N'[dbo].[Stations]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[TurnstileTraffics]', 'U') IS NOT NULL
     DROP TABLE [dbo].[TurnstileTraffics];
+GO
+IF OBJECT_ID(N'[dbo].[SubwayLines]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SubwayLines];
+GO
+IF OBJECT_ID(N'[dbo].[SubwayLineWaits]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SubwayLineWaits];
 GO
 
 -- --------------------------------------------------
@@ -102,7 +111,7 @@ GO
 -- Creating table 'SubwayLineWaits'
 CREATE TABLE [dbo].[SubwayLineWaits] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Month] int  NOT NULL,
+    [Time] float  NOT NULL,
     [LatePercent] float  NOT NULL,
     [SubwaySubwayWait_SubwayWait_Id] int  NOT NULL
 );
