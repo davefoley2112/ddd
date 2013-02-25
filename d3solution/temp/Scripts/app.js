@@ -258,6 +258,41 @@ function draw_timeseries(data, id) {
 
     g.append('path')
         .attr('d', line(data))
+
+    g.selectAll("circle")
+        .data(data)
+        .enter()
+        .append("circle")
+            .attr("cx", function (d) { return time_scale(d.Time) })
+            .attr("cy", function (d) { return percent_scale(d.LatePercent) })
+            .attr("r", 5);
+
+    g.selectAll("circle")
+        .on("mouseover", function (d) {
+            d3.select(this)
+                .transition()
+                .attr("r", 9);
+        })
+        .on("mouseout", function (d) {
+            d3.select(this)
+                .transition()
+                .attr("r", 5);
+        });
+
+    g.selectAll("circle")
+        .on("mouseover.tooltip", function (d) {
+            //alert(d.Id + " " + d.Time + " " + d.LatePercent + " " + (time_scale(d.Time) + 10) + " " + (percent_scale(d.LatePercent) - 10));
+            d3.select("text#" + d.Id).remove();
+            d3.select("#chart")
+                .append("text")
+                .text("YOYOYO").attr("x", 75).attr("y", 75);
+            //d3.select("#chart")
+            //    .append("text")
+            //    .text(d.LatePercent + "%")
+            //    .attr("x", time_scale(d.Time) + 10)
+            //    .attr("y", percent_scale(d.LatePercent) - 10)
+            //    .attr("id", d.Id);
+    });
 }
 
 function drawSubwayWaits(data) {
