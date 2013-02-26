@@ -281,18 +281,22 @@ function draw_timeseries(data, id) {
 
     g.selectAll("circle")
         .on("mouseover.tooltip", function (d) {
-            //alert(d.Id + " " + d.Time + " " + d.LatePercent + " " + (time_scale(d.Time) + 10) + " " + (percent_scale(d.LatePercent) - 10));
-            d3.select("text#" + d.Id).remove();
+            d3.select("text." + "Line" + d.Id).remove()
             d3.select("#chart")
                 .append("text")
-                .text("YOYOYO").attr("x", 75).attr("y", 75);
-            //d3.select("#chart")
-            //    .append("text")
-            //    .text(d.LatePercent + "%")
-            //    .attr("x", time_scale(d.Time) + 10)
-            //    .attr("y", percent_scale(d.LatePercent) - 10)
-            //    .attr("id", d.Id);
-    });
+                .text(d.LatePercent + "%")
+                .attr('x', time_scale(d.Time) + 10)
+                .attr('y', percent_scale(d.LatePercent) - 10)
+                .attr('class', "Line" + d.Id)
+        })
+        .on("mouseout.tooltip", function (d) {
+            d3.select("text." + "Line" + d.Id)
+                .transition()
+                .duration(500)
+                .style("opacity", 0)
+                .attr("transform", "translate(10, -10)")
+                .remove()
+        })
 }
 
 function drawSubwayWaits(data) {
