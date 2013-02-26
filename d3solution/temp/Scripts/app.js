@@ -265,7 +265,16 @@ function draw_timeseries(data, id) {
         .append("circle")
             .attr("cx", function (d) { return time_scale(d.Time) })
             .attr("cy", function (d) { return percent_scale(d.LatePercent) })
-            .attr("r", 5);
+            .attr("r", 0);
+
+    var enter_duration = 2000;
+
+    g.selectAll('circle')
+        .transition()
+        .delay(function (d, i) {
+            return i / data.length * enter_duration;
+        })
+        .attr('r', 5);
 
     g.selectAll("circle")
         .on("mouseover", function (d) {
